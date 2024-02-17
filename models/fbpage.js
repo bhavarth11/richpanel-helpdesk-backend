@@ -5,7 +5,7 @@ const activitySchema = new mongoose.Schema(
   { strict: false }
 );
 
-const pagesSchema = new mongoose.Schema({
+const fbPagesSchema = new mongoose.Schema({
   name: String,
   category: String,
   id: String,
@@ -17,13 +17,18 @@ const pagesSchema = new mongoose.Schema({
   activity: [activitySchema],
 });
 
-const userSchema = new mongoose.Schema({
+const fbUserSchema = new mongoose.Schema({
+  agentID: mongoose.Types.ObjectId,
   name: String,
   email: String,
   userID: String,
   picture: String,
   accessToken: String,
-  pages: [pagesSchema],
+  tokenType: {
+    type: String,
+    default: 'short-lived'
+  },
+  pages: [fbPagesSchema],
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("FBUser", fbUserSchema);
